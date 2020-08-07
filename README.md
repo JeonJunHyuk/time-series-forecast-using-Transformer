@@ -37,7 +37,8 @@ Point Forecasts & Prediction Intervals: 예측값과 구간. 이 모델에서는
 
 
 # Model Architecture
-1. Gating Mechanisms  
+1. Gating Mechanisms
+
 Gated Residual Network(GRN) 을 새롭게 제시했다.  
 <img width="257" alt="GRN" src="https://user-images.githubusercontent.com/49193062/89627939-7ffb5480-d8d6-11ea-8d9d-12ebebe1fd1f.PNG">
 
@@ -53,7 +54,8 @@ GLU 가 GRN이 original input 에 기여하는 정도를 조절할 수 있게 �
 Static Covariate 를 Variable Selection 과정이나 Static Enrichment 과정에 적용할 때 쓴다.  
 training 때 Dropout 적용한다.
 
-2. Variable Selection Networks  
+2. Variable Selection Networks
+
 instance-wise variable selection 을 제공한다.  
 significant variables / unnecessary variables 를 구분해낸다.  
 categorical 를 d dimensional vector 로 embedding.  
@@ -61,11 +63,13 @@ continuous variables 를 d dimensional vector로 linear transformation.
 skip connections 에 쓰일 수 있게 dimension 맞춰줄 것.
 
 
-3. Static covariate Encoders  
+3. Static covariate Encoders
+
 static metadata 의 representations 을 다소 복잡하게 만들었다.  
 4 가지 GRN encoders 로 서로 다른 context vectors 를 만들어 곳곳에 씀.
 
-4. Interpretable Multi-Head Attention  
+4. Interpretable Multi-Head Attention
+
 서로 다른 time steps 의 long-term relationships 을 학습하기 위해 self-attention을 씀.
 
 <img width="266" alt="attention1" src="https://user-images.githubusercontent.com/49193062/89627908-7b36a080-d8d6-11ea-9ade-3d58561bbf49.PNG">
@@ -90,8 +94,10 @@ attention weights 만으론 feature 의 전반적인 importance를 분석하기�
 Eq. (15) 에서, 각 head 가 다른 temporal patterns 를 학습하는 게 가능한 걸 볼 수 있다.
 
 
-5. Decoder  
-5.1 Locality Enhancement with Sequence-to-Sequence Layer  
+5. Decoder
+
+5.1 Locality Enhancement with Sequence-to-Sequence Layer
+
 anomalies, change-points, cyclical patterns 등 다양한 surrounding 정보를 읽어야 한다.  
 locality enhancement 를 위해 CNN을 쓰기도 하지만,  
 past/future inputs 를 encoder/decoder 구조로, seq2seq 모델을 쓰는 게 더 효과적.  
