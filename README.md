@@ -24,7 +24,7 @@ github: https://github.com/google-research/google-research/tree/master/tft
 얘들은 학습이 다 된(pre-trained) model로 구하는 methods.
 attention weights 로 시간까지 반영한(long-term dependencies) explainability 를 얻을 수 있다.
 
-<center><img width="275" alt="FIG1" src="https://user-images.githubusercontent.com/49193062/89627930-7eca2780-d8d6-11ea-9315-458a7bb1823c.PNG">
+<img width="275" alt="FIG1" src="https://user-images.githubusercontent.com/49193062/89627930-7eca2780-d8d6-11ea-9315-458a7bb1823c.PNG">
 
 이게 multi-horizon forecasting 문제의 일반적인 구조다.
 Observed Inputs: target과 함께 나오는 inputs
@@ -37,11 +37,16 @@ Point Forecasts & Prediction Intervals: 예측값과 구간. 이 모델에서는
 # Model Architecture
 1. Gating Mechanisms
 Gated Residual Network(GRN) 을 새롭게 제시했다.
-[GRN]
+
+<img width="257" alt="GRN" src="https://user-images.githubusercontent.com/49193062/89627939-7ffb5480-d8d6-11ea-8d9d-12ebebe1fd1f.PNG">
+
 ELU 는 Exponential Linear Unit activation function 이다.
-두 가지 목적이 있다. 
+GRN 에는 두 가지 목적이 있다. 
 non-linear processing을 적절히 적용하는 것과 relevant variables 에만 적용하는 것.
 ELU -> GLU -> Residual Connection 을 적용하는 layer.
+
+<img width="248" alt="GLU" src="https://user-images.githubusercontent.com/49193062/89627935-7f62be00-d8d6-11ea-8fa4-70c3785042e6.PNG">
+
 GLU 가 GRN이 original input 에 기여하는 정도를 조절할 수 있게 해준다.
 추가로 context vector 까지 적용할 수 있다.
 Static Covariate 를 Variable Selection 과정이나 Static Enrichment 과정에 적용할 때 쓴다.
@@ -66,18 +71,23 @@ static metadata 의 representations 을 다소 복잡하게 만들었다.
 
 4. Interpretable Multi-Head Attention
 서로 다른 time steps 의 long-term relationships 을 학습하기 위해 self-attention을 씀.
-[1]
+
+<img width="266" alt="attention1" src="https://user-images.githubusercontent.com/49193062/89627908-7b36a080-d8d6-11ea-9ade-3d58561bbf49.PNG">
+
 일반적인 attention. value 를 scale 한다.
 
-[2]
+<img width="271" alt="attention2" src="https://user-images.githubusercontent.com/49193062/89627910-7b36a080-d8d6-11ea-8967-b3dda9502616.PNG">
+
 A는 normalization function.
 scaled dot-product attention 을 썼다.
 
-[3]
+<img width="294" alt="attention3" src="https://user-images.githubusercontent.com/49193062/89627912-7bcf3700-d8d6-11ea-90b2-42bd24a6f0c3.PNG">
+
 keys, queries, values 에 head-specific weights 곱해주고 그걸 attention.
 H들을 concatenate 해서 linearly combine.
 
-[4]
+<img width="326" alt="attention4" src="https://user-images.githubusercontent.com/49193062/89627914-7c67cd80-d8d6-11ea-8af1-d685dda94818.PNG">
+
 각 head 에 다른 values 가 사용된 걸 고려하면, 
 attention weights 만으론 feature 의 전반적인 importance를 분석하기에 충분하지 않다.
 그래서 모든 heads의 value weights 를 share 하고, heads를 additive aggregation 한다.
@@ -86,7 +96,8 @@ Eq. (15) 에서, 각 head 가 다른 temporal patterns 를 학습하는 게 가�
 
 
 5. Decoder
-  5.1 Locality Enhancement with Sequence-to-Sequence Layer
+
+5.1 Locality Enhancement with Sequence-to-Sequence Layer
 anomalies, change-points, cyclical patterns 등 다양한 surrounding 정보를 읽어야 한다.
 locality enhancement 를 위해 CNN을 쓰기도 하지만,
 past/future inputs 를 encoder/decoder 구조로, seq2seq 모델을 쓰는 게 더 효과적.
