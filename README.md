@@ -3,6 +3,7 @@
 # Transformer 모델을 시계열 예측에 적용.
 
 논문: Bryan Lim and Nicolas Loeff. 2019. Temporal Fusion Transformers for Interpretable Multi-horizon Time Series Forecasting.
+
 github: https://github.com/google-research/google-research/tree/master/tft
 
 # Time series 문제의 주요 과제
@@ -104,40 +105,53 @@ past/future inputs 를 encoder/decoder 구조로, seq2seq 모델을 쓰는 게 �
 여기에 LSTM 을 썼는데, positional encoding 을 대체할 수 있다. time ordering 에 inductive bias 를 줘서.
 static metadata 도 적용하기 위해 context vector 를 첫 LSTM 의 cell state 와 hidden state 를 initialize 할 때 썼다.
 거기에 gated skip connection 까지.
-[5.1]
 
-  5.2 Static Enrichment Layer
-[5.2]
+<img width="302" alt="attention5 1" src="https://user-images.githubusercontent.com/49193062/89627915-7c67cd80-d8d6-11ea-9c7c-104e42810c85.PNG">
+
+5.2 Static Enrichment Layer
+
+<img width="261" alt="attention5 2" src="https://user-images.githubusercontent.com/49193062/89627917-7d006400-d8d6-11ea-9a40-b368f1966325.PNG">
+
 static covariates도 매우 중요하니 GRN 에 넣으면서 context vector 를 껴준다.
 
-  5.3 Temporal Self-Attention Layer
+5.3 Temporal Self-Attention Layer
 이후 self-attention 을 적용한다.
 decoder masking 까지 해주고
-[5.3]
+
+<img width="297" alt="attention5 3" src="https://user-images.githubusercontent.com/49193062/89627918-7d98fa80-d8d6-11ea-983a-c0d1c5eb595c.PNG">
+
 그 결과를 gating layer 에 넣어준다.
 
 
-  5.4 Position-wise Feed-Forward Layer
-[5.4]
+5.4 Position-wise Feed-Forward Layer
+
+<img width="246" alt="attention5 4" src="https://user-images.githubusercontent.com/49193062/89627925-7e319100-d8d6-11ea-8af8-68d955061e62.PNG">
+
 추가 non-linear processing.
 이건 layer 전체 share한다.
 
 
-  6. Quantile Outputs
-[quantile loss]
+6. Quantile Outputs
+
+<img width="342" alt="quantile loss" src="https://user-images.githubusercontent.com/49193062/89627943-8093eb00-d8d6-11ea-9686-550633715b0a.PNG">
+
 동시에 세 가지 점을 예측한다. 10th, 50th, 90th percentiles.
 training 을 위해 quantile loss 를 사용한다.
 
 
 Optional
-[va]
-[pa]
+
+<img width="732" alt="variable importance table" src="https://user-images.githubusercontent.com/49193062/89627901-796cdd00-d8d6-11ea-8896-3abf37792eb5.PNG">
+
+<img width="351" alt="temporal patterns" src="https://user-images.githubusercontent.com/49193062/89627944-8093eb00-d8d6-11ea-9d4c-7343d5af2989.PNG">
+
 variable selection weights 와 attention weights 를 사용해
 variable importance 와 temporal patterns 을 알 수 있다.
 
 
 
-Codes
+# Codes
+
 download_data: data 가져와서 1차 preprocess
 hyperparam_optimization: hyperparameter random search
 train_fixed_params: 위에서 찾은 hyperparameter로 
