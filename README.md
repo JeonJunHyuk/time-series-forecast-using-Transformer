@@ -24,7 +24,7 @@ github: https://github.com/google-research/google-research/tree/master/tft
 얘들은 학습이 다 된(pre-trained) model로 구하는 methods.
 attention weights 로 시간까지 반영한(long-term dependencies) explainability 를 얻을 수 있다.
 
-<img width="275" alt="FIG1" src="https://user-images.githubusercontent.com/49193062/89627930-7eca2780-d8d6-11ea-9315-458a7bb1823c.PNG">
+  <img width="275" alt="FIG1" src="https://user-images.githubusercontent.com/49193062/89627930-7eca2780-d8d6-11ea-9315-458a7bb1823c.PNG">
 
 이게 multi-horizon forecasting 문제의 일반적인 구조다.
 Observed Inputs: target과 함께 나오는 inputs
@@ -32,8 +32,8 @@ Known Inputs: 예측 시점에 미래의 값을 미리 알 수 있는 inputs
 Static Covariates: 시간에 관계없는 변하지 않는 features
 Point Forecasts & Prediction Intervals: 예측값과 구간. 이 모델에서는 quantile regression 으로 각 time step 에서 10th, 50th, 90th percentiles를 구했다.
 
+  <img width="579" alt="FIG2" src="https://user-images.githubusercontent.com/49193062/89627934-7f62be00-d8d6-11ea-93be-e6865249dc3d.PNG">
 
-[FIG 2]
 # Model Architecture
 1. Gating Mechanisms
 Gated Residual Network(GRN) 을 새롭게 제시했다.
