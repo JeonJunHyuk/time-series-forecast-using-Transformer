@@ -15,6 +15,7 @@ github: https://github.com/google-research/google-research/tree/master/tft
 * static(time-invariant) covariates 는 어떻게 반영할지.
 
 
+
 # 이 모델의 기능
 
 * deep neural networks 가 나오면서 traditional time-series models 에 비해 성능 향상.
@@ -42,6 +43,8 @@ Static Covariates: 시간에 관계없는 변하지 않는 features
 Point Forecasts & Prediction Intervals: 예측값과 구간. 이 모델에서는 quantile regression 으로 각 time step 에서 10th, 50th, 90th percentiles를 구했다.
 
   <img width="579" alt="FIG2" src="https://user-images.githubusercontent.com/49193062/89627934-7f62be00-d8d6-11ea-93be-e6865249dc3d.PNG">
+
+
 
 # Model Architecture
 1. Gating Mechanisms
@@ -126,7 +129,7 @@ Eq. (15) 에서, 각 head 가 다른 temporal patterns 를 학습하는 게 가�
 
 5. Decoder
 
-5.1 Locality Enhancement with Sequence-to-Sequence Layer
+  5.1 Locality Enhancement with Sequence-to-Sequence Layer
 
 anomalies, change-points, cyclical patterns 등 다양한 surrounding 정보를 읽어야 한다.
 
@@ -142,13 +145,13 @@ static metadata 도 적용하기 위해 context vector 를 첫 LSTM 의 cell sta
 
 <img width="302" alt="attention5 1" src="https://user-images.githubusercontent.com/49193062/89627915-7c67cd80-d8d6-11ea-9c7c-104e42810c85.PNG">
 
-5.2 Static Enrichment Layer
+  5.2 Static Enrichment Layer
 
 <img width="261" alt="attention5 2" src="https://user-images.githubusercontent.com/49193062/89627917-7d006400-d8d6-11ea-9a40-b368f1966325.PNG">
 
 static covariates도 매우 중요하니 GRN 에 넣으면서 context vector 를 껴준다.
 
-5.3 Temporal Self-Attention Layer
+  5.3 Temporal Self-Attention Layer
 
 이후 self-attention 을 적용한다.
 
@@ -159,7 +162,7 @@ decoder masking 까지 해주고
 그 결과를 gating layer 에 넣어준다.
 
 
-5.4 Position-wise Feed-Forward Layer
+  5.4 Position-wise Feed-Forward Layer
 
 <img width="246" alt="attention5 4" src="https://user-images.githubusercontent.com/49193062/89627925-7e319100-d8d6-11ea-8af8-68d955061e62.PNG">
 
@@ -168,7 +171,7 @@ decoder masking 까지 해주고
 이건 layer 전체 share한다.
 
 
-6. Quantile Outputs
+  6. Quantile Outputs
 
 <img width="342" alt="quantile loss" src="https://user-images.githubusercontent.com/49193062/89627943-8093eb00-d8d6-11ea-9686-550633715b0a.PNG">
 
@@ -191,8 +194,7 @@ variable importance 와 temporal patterns 을 알 수 있다.
 
 # Codes
 
-download_data: data 가져와서 1차 preprocess
-
+download_data: data 가져와서 1차 preprocess  
 hyperparam_optimization: hyperparameter random search
 
 train_fixed_params: 위에서 찾은 hyperparameter로 
