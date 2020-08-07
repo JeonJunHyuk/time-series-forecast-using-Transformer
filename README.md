@@ -113,7 +113,8 @@ static metadata 도 적용하기 위해 context vector 를 첫 LSTM 의 cell sta
 
 static covariates도 매우 중요하니 GRN 에 넣으면서 context vector 를 껴준다.
 
-5.3 Temporal Self-Attention Layer  
+5.3 Temporal Self-Attention Layer
+
 이후 self-attention 을 적용한다.  
 decoder masking 까지 해주고
 
@@ -151,10 +152,10 @@ variable importance 와 temporal patterns 을 알 수 있다.
 
 # Codes
 
-download_data: data 가져와서 1차 preprocess  
-hyperparam_optimization: hyperparameter random search  
-train_fixed_params: 위에서 찾은 hyperparameter로  
-step-by-step: 예시로 layer 순차적으로 살펴보기  
-libs/tft_model: model architecture  
-data_formatters/base: 2차 preprocessing frame
+* download_data: data 가져와서 1차 preprocess  
+* hyperparam_optimization: hyperparameter random search  
+* train_fixed_params: 위에서 찾은 hyperparameter로  
+* step-by-step: 예시로 layer 순차적으로 살펴보기  
+* libs/tft_model: model architecture  
+* data_formatters/base: 2차 preprocessing frame
 
